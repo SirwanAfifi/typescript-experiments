@@ -10,7 +10,9 @@
   "author": "Olly Freeman <olly@letsdothis.com>",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "@types/lowdb": "^1.0.9",
+    "inquirer": "^6.3.1",
+    "lowdb": "^1.0.0"
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0"
