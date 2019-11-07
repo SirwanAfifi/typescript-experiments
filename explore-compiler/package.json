@@ -10,6 +10,9 @@
   "author": "Sirwan Afifi",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
     "tsc-watch": "^2.1.2",
     "typescript": "^3.5.1"
   }
