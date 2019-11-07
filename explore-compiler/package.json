@@ -1,0 +1,16 @@
+{
+  "name": "explore-compiler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc-watch --onsuccess \"node dist/index.js\""
+  },
+  "keywords": [],
+  "author": "Sirwan Afifi",
+  "license": "ISC",
+  "devDependencies": {
+    "tsc-watch": "^2.1.2",
+    "typescript": "^3.5.1"
+  }
+}
