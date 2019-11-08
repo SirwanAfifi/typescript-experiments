@@ -15,3 +15,26 @@ product.forEach((j: string | number) => {
     console.log(`Number: ${j.toFixed(2)}`);
   }
 });
+
+let products: [string, number][] = [["P1", 1000], ["P2", 200000]];
+let tupleUnion: ([string, number] | boolean)[] = [
+  true,
+  false,
+  product,
+  person,
+  ...products
+];
+
+tupleUnion.forEach((elem: [string, number] | boolean) => {
+  if (elem instanceof Array) {
+    elem.forEach((tupleElem: string | number) => {
+      if (typeof tupleElem === "string") {
+        console.log(`String Value: ${tupleElem}`);
+      } else {
+        console.log(`Number Value: ${tupleElem}`);
+      }
+    });
+  } else if (typeof elem === "boolean") {
+    console.log(`Boolean Value: ${elem}`);
+  }
+});
