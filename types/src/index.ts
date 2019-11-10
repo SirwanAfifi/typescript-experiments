@@ -22,10 +22,6 @@ class Employee {
   }
 }
 
-Employee.prototype.writeDept = function() {
-  console.log(`${this.name} works in ${this.dept}`);
-};
-
 let salesEmployee = new Employee("1", "User1", "Sales", "Paris");
 
 let data: (Person | Employee)[] = [
