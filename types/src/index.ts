@@ -1,33 +1,32 @@
-import { Person, Product } from "./dataTypes";
+import { Person, Product, City } from "./dataTypes";
 
 let people = [
-  new Person("Sirwan Afifi", "Sanandaj"),
+  new Person("Sirwan Afifi", "Paris"),
   new Person("Behzad", "Sanandaj")
 ];
 let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
-
+let cities = [new City("Sanandaj", 8136000), new City("Paris", 2141000)];
 [...people, ...products].forEach(item => console.log(`Item: ${item.name}`));
 
-class DataCollection<T extends Person | Product> {
+class DataCollection<T extends { name: string }, U> {
   private items: T[] = [];
 
-  constructor(initialiItems: T[]) {
-    this.items.push(...initialiItems);
+  constructor(initialData: T[]) {
+    this.items.push(...initialData);
   }
 
-  add(newItem: T) {
-    this.items.push(newItem);
-  }
-
-  getNames(): string[] {
-    return this.items.map(item => item.name);
-  }
-
-  getItem(index: number) {
-    return this.items[index];
+  collate(targetData: U[], itemProp: string, targetProp: string): (T & U)[] {
+    let results = [];
+    this.items.forEach(item => {
+      let match = targetData.find(d => d[targetProp] === item[itemProp]);
+      if (match !== undefined) {
+        results.push({ ...match, ...item });
+      }
+    });
+    return results;
   }
 }
 
-let peopleData = new DataCollection<Person>(people);
-let firstPerson = peopleData.getItem(0);
-console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);
+const peopleData = new DataCollection<Person, City>(people);
+let collatedData = peopleData.collate(cities, "city", "name");
+collatedData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.population}`));
