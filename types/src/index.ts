@@ -1,40 +1,33 @@
-interface Human {}
+import { Person, Product } from "./dataTypes";
 
-abstract class Person {
-  constructor(public id: string, public name: string, public city: string) {}
-
-  getDetails(): string {
-    return `${this.name}, ${this.getSpecificDetails()}`;
-  }
-
-  abstract getSpecificDetails(): string;
-}
-
-class Employee extends Person implements Human {
-  getSpecificDetails() {
-    return `works in ${this.dept}`;
-  }
-  constructor(
-    public readonly id: string,
-    public name: string,
-    public dept: string,
-    public city: string
-  ) {
-    super(id, name, city);
-  }
-
-  writeDept() {
-    console.log(`${this.name} works in ${this.dept}`);
-  }
-}
-
-let salesEmployee = new Employee("1", "User1", "Sales", "Paris");
-
-let data = [
-  new Employee("1", "bsmith", "Bob Smith", "London"),
-  new Employee("1", "User1", "Sales", "Paris")
+let people = [
+  new Person("Sirwan Afifi", "Sanandaj"),
+  new Person("Behzad", "Sanandaj")
 ];
+let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
 
-data.forEach(item => {
-  item.getSpecificDetails();
-});
+[...people, ...products].forEach(item => console.log(`Item: ${item.name}`));
+
+class DataCollection<T extends Person | Product> {
+  private items: T[] = [];
+
+  constructor(initialiItems: T[]) {
+    this.items.push(...initialiItems);
+  }
+
+  add(newItem: T) {
+    this.items.push(newItem);
+  }
+
+  getNames(): string[] {
+    return this.items.map(item => item.name);
+  }
+
+  getItem(index: number) {
+    return this.items[index];
+  }
+}
+
+let peopleData = new DataCollection<Person>(people);
+let firstPerson = peopleData.getItem(0);
+console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);

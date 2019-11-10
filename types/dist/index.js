@@ -1,38 +1,27 @@
-class Person {
-    constructor(id, name, city) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-    }
-    getDetails() {
-        return `${this.name}, ${this.getSpecificDetails()}`;
-    }
-}
-class Employee extends Person {
-    constructor(id, name, dept, city) {
-        super(id, name, city);
-        this.id = id;
-        this.name = name;
-        this.dept = dept;
-        this.city = city;
-    }
-    getSpecificDetails() {
-        return `works in ${this.dept}`;
-    }
-    writeDept() {
-        console.log(`${this.name} works in ${this.dept}`);
-    }
-}
-let salesEmployee = new Employee("1", "User1", "Sales", "Paris");
-let data = [
-    new Person("bsmith", "Bob Smith", "London"),
-    new Employee("1", "User1", "Sales", "Paris")
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const dataTypes_1 = require("./dataTypes");
+let people = [
+    new dataTypes_1.Person("Sirwan Afifi", "Sanandaj"),
+    new dataTypes_1.Person("Behzad", "Sanandaj")
 ];
-data.forEach(item => {
-    if (item instanceof Employee) {
-        item.writeDept();
+let products = [new dataTypes_1.Product("Running Shoes", 100), new dataTypes_1.Product("Hat", 25)];
+[...people, ...products].forEach(item => console.log(`Item: ${item.name}`));
+class DataCollection {
+    constructor(initialiItems) {
+        this.items = [];
+        this.items.push(...initialiItems);
     }
-    else {
-        console.log(`${item.id} ${item.name} ${item.city}`);
+    add(newItem) {
+        this.items.push(newItem);
     }
-});
+    getNames() {
+        return this.items.map(item => item.name);
+    }
+    getItem(index) {
+        return this.items[index];
+    }
+}
+let peopleData = new DataCollection(people);
+let firstPerson = peopleData.getItem(0);
+console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);
