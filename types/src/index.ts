@@ -5,7 +5,7 @@ type Person = {
 };
 
 class Employee {
-  id: string;
+  public readonly id: string;
   name: string;
   dept: string;
   city: string;
