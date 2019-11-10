@@ -1,16 +1,16 @@
-type Person = {
-  id: string;
-  name: string;
-  city: string;
-};
+class Person {
+  constructor(public id: string, public name: string, public city: string) {}
+}
 
-class Employee {
+class Employee extends Person {
   constructor(
     public readonly id: string,
     public name: string,
     public dept: string,
     public city: string
-  ) {}
+  ) {
+    super(id, name, city);
+  }
 
   writeDept() {
     console.log(`${this.name} works in ${this.dept}`);
