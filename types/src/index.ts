@@ -1,40 +1,40 @@
-function calculateTax(amount: number, format: boolean): number | string {
-  return amount * 1.2;
-}
+type Person = {
+  id: string;
+  name: string;
+  city: string;
+};
 
-let product: [string, number] = ["P1", 100];
-let person: [string, number] = ["Sirwan Afifi", 30];
+type Employee = {
+  id: string;
+  name: string;
+  dept: string;
+  city: string;
+  writeDept: () => void;
+};
 
-console.log(product[0], product[1]);
-console.log(person[0], person[1]);
+let Employee = function(id: string, name: string, dept: string, city: string) {
+  this.id = id;
+  this.name = name;
+  this.dept = dept;
+  this.city = city;
+};
+Employee.prototype.writeDept = function() {
+  console.log(`${this.name} works in ${this.dept}`);
+};
 
-product.forEach((j: string | number) => {
-  if (typeof j === "string") {
-    console.log(`String: ${j}`);
-  } else {
-    console.log(`Number: ${j.toFixed(2)}`);
-  }
-});
+let salesEmployee = new Employee("1", "User1", "Sales", "Paris");
 
-let products: [string, number][] = [["P1", 1000], ["P2", 200000]];
-let tupleUnion: ([string, number] | boolean)[] = [
-  true,
-  false,
-  product,
-  person,
-  ...products
+let data: (Person | Employee)[] = [
+  { id: "bsmith", name: "Bob Smith", city: "London" },
+  { id: "ajones", name: "Alice Jones", city: "Paris" },
+  { id: "dpeters", name: "Dora Peters", city: "New York" },
+  salesEmployee
 ];
 
-tupleUnion.forEach((elem: [string, number] | boolean) => {
-  if (elem instanceof Array) {
-    elem.forEach((tupleElem: string | number) => {
-      if (typeof tupleElem === "string") {
-        console.log(`String Value: ${tupleElem}`);
-      } else {
-        console.log(`Number Value: ${tupleElem}`);
-      }
-    });
-  } else if (typeof elem === "boolean") {
-    console.log(`Boolean Value: ${elem}`);
+data.forEach(item => {
+  if ("dept" in item) {
+    item.writeDept();
+  } else {
+    console.log(`${item.id} ${item.name} ${item.city}`);
   }
 });
