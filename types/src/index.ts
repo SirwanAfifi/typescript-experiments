@@ -50,3 +50,10 @@ function getValue<T, K extends keyof T>(item: T, keyname: K) {
 
 let p1 = new Product("Running Shoes", 100);
 getValue(p1, "name");
+
+type MappedProduct = {
+  [P in keyof Product]: Product[P];
+};
+
+let p2: MappedProduct = { name: "Kayak", price: 275 };
+console.log(`Mapped type: ${p2.name}, ${p2.price}`);

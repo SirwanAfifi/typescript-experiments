@@ -33,3 +33,5 @@ function getValue(item, keyname) {
 }
 let p1 = new dataTypes_1.Product("Running Shoes", 100);
 getValue(p1, "name");
+let p2 = { name: "Kayak", price: 275 };
+console.log(`Mapped type: ${p2.name}, ${p2.price}`);
