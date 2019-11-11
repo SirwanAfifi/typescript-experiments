@@ -19,9 +19,12 @@ class Collection {
     values() {
         return this.items.values();
     }
+    [Symbol.iterator]() {
+        return this.items.values();
+    }
 }
 let productCollection = new Collection(products);
 console.log(`There are ${productCollection.count} products`);
-[...productCollection.values()].forEach(p => console.log(`Products: ${p.name}, ${p.price}`));
+[...productCollection].forEach(p => console.log(`Products: ${p.name}, ${p.price}`));
 let p = productCollection.get("Hat");
 console.log(`Product: ${p.name}, ${p.price}`);
