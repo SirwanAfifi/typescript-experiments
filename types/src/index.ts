@@ -43,3 +43,10 @@ console.log(`There are ${productCollection.count} products`);
 
 let p = productCollection.get("Hat");
 console.log(`Product: ${p.name}, ${p.price}`);
+
+function getValue<T, K extends keyof T>(item: T, keyname: K) {
+  console.log(`Value: ${item[keyname]}`);
+}
+
+let p1 = new Product("Running Shoes", 100);
+getValue(p1, "name");

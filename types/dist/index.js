@@ -28,3 +28,8 @@ console.log(`There are ${productCollection.count} products`);
 [...productCollection].forEach(p => console.log(`Products: ${p.name}, ${p.price}`));
 let p = productCollection.get("Hat");
 console.log(`Product: ${p.name}, ${p.price}`);
+function getValue(item, keyname) {
+    console.log(`Value: ${item[keyname]}`);
+}
+let p1 = new dataTypes_1.Product("Running Shoes", 100);
+getValue(p1, "name");
