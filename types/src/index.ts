@@ -7,13 +7,14 @@ type shapeType = {
 };
 
 class Collection<T extends shapeType> {
-  private items: Set<T>;
+  private items: Map<string, T>;
   constructor(initialItems: T[] = []) {
-    this.items = new Set<T>(initialItems);
+    this.items = new Map<string, T>();
+    this.add(...initialItems);
   }
 
   add(...newItems: T[]): void {
-    newItems.forEach(newItem => this.items.add(newItem));
+    newItems.forEach(newItem => this.items.set(newItem.name, newItem));
   }
 
   get(name: string): T {
@@ -23,9 +24,18 @@ class Collection<T extends shapeType> {
   get count(): number {
     return this.items.size;
   }
+
+  values(): IterableIterator<T> {
+    return this.items.values();
+  }
 }
 
 let productCollection: Collection<Product> = new Collection(products);
 console.log(`There are ${productCollection.count} products`);
+
+[...productCollection.values()].forEach(p =>
+  console.log(`Products: ${p.name}, ${p.price}`)
+);
+
 let p = productCollection.get("Hat");
 console.log(`Product: ${p.name}, ${p.price}`);
