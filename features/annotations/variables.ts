@@ -21,9 +21,18 @@ let array: Array<number> = [10];
 let array2: string[];
 let array3: [string, number][] = [["C#", 1]];
 let complexArray: [Array<number>, Array<string>][] = [
-  [[10, 5, 6, 4], ["Item1", "Item2"]],
-  [[10, 5, 6, 4], ["Item1", "Item2"]],
-  [[10, 5, 6, 4], ["Item1", "Item2"]]
+  [
+    [10, 5, 6, 4],
+    ["Item1", "Item2"]
+  ],
+  [
+    [10, 5, 6, 4],
+    ["Item1", "Item2"]
+  ],
+  [
+    [10, 5, 6, 4],
+    ["Item1", "Item2"]
+  ]
 ];
 
 // Class
@@ -50,3 +59,21 @@ for (let i = 0; i < words.length - 1; i++) {
   }
 }
 console.log(foundWord);
+
+const add = (a: number, b: number) => {
+  return a + b;
+};
+
+function divide(a: number, b: number): number {
+  return a / b;
+}
+
+const multiply = function(a: number, b: number): number {
+  return a * b;
+};
+
+const {
+  coords: { lat, lng }
+}: { coords: { lat: number; lng: number } } = {
+  coords: { lat: 10000, lng: 20000 }
+};
