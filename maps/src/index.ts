@@ -1,4 +1,5 @@
 // import { User } from "./User";
-// import { Company } from "./Company";
+import { Company } from "./Company";
+import { CustomMap } from "./CustomMap";
 
-console.log(google.maps);
+new CustomMap("map");
