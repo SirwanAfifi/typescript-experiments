@@ -4,6 +4,8 @@
   },
   "dependencies": {
     "@types/faker": "^4.1.7",
+    "@types/googlemaps": "^3.38.0",
+    "@types/node": "^12.12.7",
     "faker": "^4.1.0"
   }
 }
