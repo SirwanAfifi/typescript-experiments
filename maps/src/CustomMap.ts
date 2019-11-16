@@ -3,6 +3,7 @@ interface Mappable {
     lat: number;
     lng: number;
   };
+  markerContent(): string;
 }
 export class CustomMap {
   private googleMap: google.maps.Map;
@@ -26,10 +27,14 @@ export class CustomMap {
       }
     });
 
+    let infoWindow: google.maps.InfoWindow = null;
+
     marker.addListener("click", () => {
-      const infoWindow = new google.maps.InfoWindow({
-        content: "Hi there!"
-      });
+      if (!infoWindow) {
+        infoWindow = new google.maps.InfoWindow({
+          content: mappable.markerContent()
+        });
+      }
       infoWindow.open(this.googleMap, marker);
     });
   }
