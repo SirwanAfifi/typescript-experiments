@@ -157,8 +157,7 @@ var user = new User_1.User({
   age: 30
 });
 user.set({
-  name: "Kaywan",
-  age: 29
+  name: "Kaywan"
 });
 console.log(user.get("name"));
 console.log(user.get("age"));
