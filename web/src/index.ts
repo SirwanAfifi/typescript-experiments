@@ -4,5 +4,8 @@ const user = new User({ id: 1 });
 
 user.set({ name: "Sirwan Afifi", age: 40 });
 
-// user.fetch();
-user.save();
+user.events.on("change", () => {
+  console.log("Change!");
+});
+
+user.events.trigger("change");
