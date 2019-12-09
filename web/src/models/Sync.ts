@@ -11,12 +11,12 @@ export class Sync<T extends HasId> {
     return axios.get(`${this.rootUrl}/${id}`);
   }
 
-  save(data: T): void {
+  save(data: T): Promise<AxiosResponse<any>> {
     const { id } = data;
     if (id) {
-      axios.put(`${this.rootUrl}/${id}`, data);
+      return axios.put(`${this.rootUrl}/${id}`, data);
     } else {
-      axios.post(this.rootUrl, data);
+      return axios.post(this.rootUrl, data);
     }
   }
 }
