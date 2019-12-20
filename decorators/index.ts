@@ -1,4 +1,5 @@
 import { log } from "./types/method";
+import { logProp } from "./types/property";
 
 class TestDecorator {
   @log
@@ -6,6 +7,9 @@ class TestDecorator {
     // throw new Error("Error");
     return title;
   }
+
+  @logProp
+  name: string = "Sirwan";
 }
 
 new TestDecorator().showMessage("Hello");

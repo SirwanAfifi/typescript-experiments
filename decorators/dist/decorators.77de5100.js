@@ -146,6 +146,18 @@ function log(target, propertyKey, descriptor) {
 }
 
 exports.log = log;
+},{}],"types/property.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function logProp(target, propertyKey) {
+  console.log(propertyKey + " Decorator Invoked");
+}
+
+exports.logProp = logProp;
 },{}],"index.ts":[function(require,module,exports) {
 "use strict";
 
@@ -171,10 +183,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var method_1 = require("./types/method");
 
+var property_1 = require("./types/property");
+
 var TestDecorator =
 /** @class */
 function () {
-  function TestDecorator() {}
+  function TestDecorator() {
+    this.name = "Sirwan";
+  }
 
   TestDecorator.prototype.showMessage = function (title) {
     // throw new Error("Error");
@@ -183,11 +199,13 @@ function () {
 
   __decorate([method_1.log, __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
 
+  __decorate([property_1.logProp, __metadata("design:type", String)], TestDecorator.prototype, "name", void 0);
+
   return TestDecorator;
 }();
 
 new TestDecorator().showMessage("Hello");
-},{"./types/method":"types/method.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./types/method":"types/method.ts","./types/property":"types/property.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
