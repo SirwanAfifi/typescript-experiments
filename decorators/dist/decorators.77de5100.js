@@ -117,47 +117,18 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"types/method.ts":[function(require,module,exports) {
+})({"types/parameter.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-function log(target, propertyKey, descriptor) {
-  var originalMethod = descriptor.value;
-
-  descriptor.value = function () {
-    var args = [];
-
-    for (var _i = 0; _i < arguments.length; _i++) {
-      args[_i] = arguments[_i];
-    }
-
-    try {
-      var start = performance.now();
-      originalMethod.apply(void 0, args);
-      var end = performance.now();
-      console.log(end - start);
-    } catch (_a) {
-      console.log(propertyKey + " has and error with these arguments: " + args);
-    }
-  };
+function logParam(target, propertyKey, index) {
+  console.log(propertyKey + " decorator (" + index + ") Invoked");
 }
 
-exports.log = log;
-},{}],"types/property.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function logProp(target, propertyKey) {
-  console.log(propertyKey + " Decorator Invoked");
-}
-
-exports.logProp = logProp;
+exports.logParam = logParam;
 },{}],"index.ts":[function(require,module,exports) {
 "use strict";
 
@@ -177,35 +148,39 @@ var __metadata = this && this.__metadata || function (k, v) {
   if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+var __param = this && this.__param || function (paramIndex, decorator) {
+  return function (target, key) {
+    decorator(target, key, paramIndex);
+  };
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var method_1 = require("./types/method");
-
-var property_1 = require("./types/property");
+var parameter_1 = require("./types/parameter");
 
 var TestDecorator =
 /** @class */
 function () {
   function TestDecorator() {
+    // @logProp
     this.name = "Sirwan";
-  }
+  } // @log
+
 
   TestDecorator.prototype.showMessage = function (title) {
     // throw new Error("Error");
     return title;
   };
 
-  __decorate([method_1.log, __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
-
-  __decorate([property_1.logProp, __metadata("design:type", String)], TestDecorator.prototype, "name", void 0);
+  __decorate([__param(0, parameter_1.logParam), __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
 
   return TestDecorator;
 }();
 
 new TestDecorator().showMessage("Hello");
-},{"./types/method":"types/method.ts","./types/property":"types/property.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./types/parameter":"types/parameter.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
