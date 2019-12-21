@@ -117,72 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"types/method.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function log(target, propertyKey, descriptor) {
-  var originalMethod = descriptor.value;
-
-  descriptor.value = function () {
-    var args = [];
-
-    for (var _i = 0; _i < arguments.length; _i++) {
-      args[_i] = arguments[_i];
-    }
-
-    try {
-      var start = performance.now();
-      originalMethod.apply(void 0, args);
-      var end = performance.now();
-      console.log(end - start);
-    } catch (_a) {
-      console.log(propertyKey + " has and error with these arguments: " + args);
-    }
-  };
-}
-
-exports.log = log;
-},{}],"types/property.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function logProp(target, propertyKey) {
-  console.log(propertyKey + " Decorator Invoked");
-}
-
-exports.logProp = logProp;
-},{}],"types/parameter.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function logParam(target, propertyKey, index) {
-  console.log(propertyKey + " decorator (" + index + ") Invoked");
-}
-
-exports.logParam = logParam;
-},{}],"types/class.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function logClass(constrctor) {
-  console.log(constrctor + " Decorator Invoked");
-}
-
-exports.logClass = logClass;
-},{}],"index.ts":[function(require,module,exports) {
+})({"types/factory.ts":[function(require,module,exports) {
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -201,46 +136,48 @@ var __metadata = this && this.__metadata || function (k, v) {
   if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var __param = this && this.__param || function (paramIndex, decorator) {
-  return function (target, key) {
-    decorator(target, key, paramIndex);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var APIServer =
+/** @class */
+function () {
+  function APIServer(routes) {
+    this.routes = routes;
+  }
+
+  APIServer.prototype.getRoutes = function () {
+    return this.routes;
   };
-};
+
+  __decorate([enumerable(true), __metadata("design:type", Function), __metadata("design:paramtypes", []), __metadata("design:returntype", void 0)], APIServer.prototype, "getRoutes", null);
+
+  return APIServer;
+}();
+
+exports.APIServer = APIServer;
+
+function enumerable(val) {
+  return function (target, propertyKey, descriptor) {
+    descriptor.enumerable = val;
+  };
+}
+},{}],"index.ts":[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var method_1 = require("./types/method");
+var factory_1 = require("./types/factory");
 
-var property_1 = require("./types/property");
+var api = new factory_1.APIServer(["home", "about"]);
 
-var parameter_1 = require("./types/parameter");
-
-var class_1 = require("./types/class");
-
-var TestDecorator =
-/** @class */
-function () {
-  function TestDecorator() {
-    this.name = "Sirwan";
-  }
-
-  TestDecorator.prototype.showMessage = function (title) {
-    // throw new Error("Error");
-    return title;
-  };
-
-  __decorate([method_1.log, __param(0, parameter_1.logParam), __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
-
-  __decorate([property_1.logProp, __metadata("design:type", String)], TestDecorator.prototype, "name", void 0);
-
-  TestDecorator = __decorate([class_1.logClass], TestDecorator);
-  return TestDecorator;
-}();
-
-new TestDecorator().showMessage("Hello");
-},{"./types/method":"types/method.ts","./types/property":"types/property.ts","./types/parameter":"types/parameter.ts","./types/class":"types/class.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+for (var m in api) {
+  console.log(m);
+}
+},{"./types/factory":"types/factory.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
