@@ -117,7 +117,48 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"types/parameter.ts":[function(require,module,exports) {
+})({"types/method.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function log(target, propertyKey, descriptor) {
+  var originalMethod = descriptor.value;
+
+  descriptor.value = function () {
+    var args = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+
+    try {
+      var start = performance.now();
+      originalMethod.apply(void 0, args);
+      var end = performance.now();
+      console.log(end - start);
+    } catch (_a) {
+      console.log(propertyKey + " has and error with these arguments: " + args);
+    }
+  };
+}
+
+exports.log = log;
+},{}],"types/property.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function logProp(target, propertyKey) {
+  console.log(propertyKey + " Decorator Invoked");
+}
+
+exports.logProp = logProp;
+},{}],"types/parameter.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -129,6 +170,18 @@ function logParam(target, propertyKey, index) {
 }
 
 exports.logParam = logParam;
+},{}],"types/class.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function logClass(constrctor) {
+  console.log(constrctor + " Decorator Invoked");
+}
+
+exports.logClass = logClass;
 },{}],"index.ts":[function(require,module,exports) {
 "use strict";
 
@@ -158,29 +211,36 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var method_1 = require("./types/method");
+
+var property_1 = require("./types/property");
+
 var parameter_1 = require("./types/parameter");
+
+var class_1 = require("./types/class");
 
 var TestDecorator =
 /** @class */
 function () {
   function TestDecorator() {
-    // @logProp
     this.name = "Sirwan";
-  } // @log
-
+  }
 
   TestDecorator.prototype.showMessage = function (title) {
     // throw new Error("Error");
     return title;
   };
 
-  __decorate([__param(0, parameter_1.logParam), __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
+  __decorate([method_1.log, __param(0, parameter_1.logParam), __metadata("design:type", Function), __metadata("design:paramtypes", [String]), __metadata("design:returntype", String)], TestDecorator.prototype, "showMessage", null);
 
+  __decorate([property_1.logProp, __metadata("design:type", String)], TestDecorator.prototype, "name", void 0);
+
+  TestDecorator = __decorate([class_1.logClass], TestDecorator);
   return TestDecorator;
 }();
 
 new TestDecorator().showMessage("Hello");
-},{"./types/parameter":"types/parameter.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./types/method":"types/method.ts","./types/property":"types/property.ts","./types/parameter":"types/parameter.ts","./types/class":"types/class.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
